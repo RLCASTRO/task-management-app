@@ -17,6 +17,11 @@ export class TasksService {
     return this.tasks.find((task) => task.id === taskId);
   }
 
+  //this will return an array of tasks that does not have the id passed as argument
+  public getTaskIndexById(taskId: string): number {
+    return this.tasks.findIndex((task) => task.id === taskId);
+  }
+
   public createTask(createTaskDto: CreateTaskDto): Task {
     const { title, description } = createTaskDto;
     //creates the task object
