@@ -6,7 +6,6 @@ import { CreateTaskDto } from './dto/create-task.dto';
 @Injectable()
 export class TasksService {
   private tasks: Task[] = []; //only this service has access to this private property
-  private task: Task;
   //the controller needs to talk to the service
   //this will be public by default if you dont define the visibility modifier.
   public getAllTasks(): Task[] {
@@ -15,9 +14,7 @@ export class TasksService {
 
   public getTaskById(taskId: string): Task {
     //filter the task by id
-    this.task = this.tasks.find((task) => task.id === taskId);
-
-    return this.task;
+    return this.tasks.find((task) => task.id === taskId);
   }
 
   public createTask(createTaskDto: CreateTaskDto): Task {
