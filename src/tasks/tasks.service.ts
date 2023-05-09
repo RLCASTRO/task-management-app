@@ -18,8 +18,14 @@ export class TasksService {
   }
 
   //this will return an array of tasks that does not have the id passed as argument
-  public getTaskIndexById(taskId: string): number {
-    return this.tasks.findIndex((task) => task.id === taskId);
+  public deleteTaskById(taskId: string): string {
+    const index = this.tasks.findIndex((task) => task.id === taskId);
+    if (index === -1) {
+      return 'Task not found';
+    } else {
+      this.tasks.splice(index, 1);
+      return `Task number deleted`;
+    }
   }
 
   public createTask(createTaskDto: CreateTaskDto): Task {

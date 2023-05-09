@@ -20,9 +20,8 @@ export class TasksController {
   }
 
   @Delete(':id')
-  deleteTaskById(@Param('id') id: string): Task[] {
-    const index: number = this.tasksService.getTaskIndexById(id);
-    return this.tasksService.getAllTasks().splice(index, 1);
+  deleteTaskById(@Param('id') id: string): string {
+    return this.tasksService.deleteTaskById(id); //this will call the delete
   }
 
   //This controller method will handle POST requests on the tasks endpoint
