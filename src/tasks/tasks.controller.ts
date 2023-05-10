@@ -1,8 +1,7 @@
 import { Controller, Get, Post, Body, Param, Delete, Patch } from '@nestjs/common';
 import { TasksService } from './tasks.service';
-import { Task } from './tasks.model';
+import { Task, TaskStatus } from './tasks.model';
 import { CreateTaskDto } from './dto/create-task.dto';
-import { UpdateTaskDto } from './dto/update-task.dto';
 
 @Controller('tasks') //this is the route localhost:3000/tasks
 export class TasksController {
@@ -31,9 +30,9 @@ export class TasksController {
     return this.tasksService.createTask(createTaskDto);
   }
 
-  @Patch(':id')
-  updateTask(@Body() updateTaskDto: UpdateTaskDto, @Param() id: string): Task | string {
-    return this.tasksService.updateTask(updateTaskDto, id);
+  @Patch('/:id/status')
+  updateTaskStatus(@Body('status') status: TaskStatus, @Param('id') id: string): Task {
+    return this.tasksService.updateTaskStatus(status, id);
   }
 
   //You can have methods here
