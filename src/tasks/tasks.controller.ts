@@ -3,6 +3,7 @@ import { TasksService } from './tasks.service';
 import { Task, TaskStatus } from './tasks.model';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { GetTasksFilterDto } from './dto/get-tasks-filter.dto';
+import { UpdateTaskStatusDto } from './dto/update-task-status.dto';
 
 @Controller('tasks') //this is the route localhost:3000/tasks
 export class TasksController {
@@ -28,7 +29,7 @@ export class TasksController {
   }
 
   @Delete(':id')
-  deleteTaskById(@Param('id') id: string): string {
+  deleteTaskById(@Param('id') id: string) {
     return this.tasksService.deleteTaskById(id); //this will call the delete
   }
 
@@ -39,7 +40,11 @@ export class TasksController {
   }
 
   @Patch('/:id/status')
-  updateTaskStatus(@Body('status') status: TaskStatus, @Param('id') id: string): Task {
+  updateTaskStatus(
+    @Body() updateTaskStatusDto: UpdateTaskStatusDto,
+    @Param('id') id: string,
+  ): Task {
+    const { status } = updateTaskStatusDto;
     return this.tasksService.updateTaskStatus(status, id);
   }
 

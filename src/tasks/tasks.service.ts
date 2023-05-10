@@ -48,9 +48,9 @@ export class TasksService {
   }
 
   //this will return an array of tasks that does not have the id passed as argument
-  public deleteTaskById(taskId: string): string {
+  public deleteTaskById(taskId: string) {
+    const found = this.getTaskById(taskId);
     this.tasks = this.tasks.filter((task) => task.id !== taskId);
-    return `Task number deleted`;
   }
 
   public updateTaskStatus(status: TaskStatus, id: string) {
