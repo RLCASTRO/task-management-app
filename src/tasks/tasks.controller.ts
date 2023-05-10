@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Body, Param, Delete, Patch } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Patch, Query } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { Task, TaskStatus } from './tasks.model';
 import { CreateTaskDto } from './dto/create-task.dto';
+import { GetTasksFilterDto } from './dto/get-tasks-filter.dto';
 
 @Controller('tasks') //this is the route localhost:3000/tasks
 export class TasksController {
@@ -10,8 +11,15 @@ export class TasksController {
 
   // The TasksController method to receive GET requests on the tasks endpoint
   @Get()
-  getAllTasks(): Task[] {
-    return this.tasksService.getAllTasks(); //this will call the getAllTasks method from the injected service tasks.service
+  getTasks(@Query() filterDto: GetTasksFilterDto): Task[] {
+    //if any filter defined, call getTasksWithFilters
+    if (Object.keys(filterDto).length) {
+      //do something
+      return this.tasksService.getTasksWithFilters(filterDto);
+    } else {
+      //otherwise, call getAllTasks
+      return this.tasksService.getAllTasks(); //this will call the getAllTasks method from the injected service tasks.service
+    }
   }
 
   @Get(':id')
